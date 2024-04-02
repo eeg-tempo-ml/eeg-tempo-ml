@@ -8,9 +8,10 @@
 import pandas as pd
 import numpy as np
 from scipy.io import loadmat
+from IPython.display import display
 
 
-def load_files():
+def load_uniform_length_song_files():
     all_songs_df = pd.DataFrame()
 
     song_names = ['First  Fires', 'Oino', 'Tiptoes', 'Careless Love', 'Lebanese Blonde', 'Canopée', 'Doing Yoga', 'Until the Sun Needs to Rise', 'Silent Shout', 'The Last Thing You Should Do']
@@ -49,4 +50,60 @@ def load_files():
     print(f'Shape of final dataframe with all songs is: {all_songs_df.shape}')
     all_songs_df.to_csv('eeg_data_absolute_values.csv', index=False)       
 
-load_files()
+
+def load_FD_song_files():
+    song_num=21
+    try:
+        f = loadmat(f'FD_song_files/song{song_num}_uniform_length.mat')
+        print(f'Loaded song #{song_num}')
+    except:
+        print('File not found in path.')
+
+    data = f['data']
+
+    display(data)
+
+def add_labels_classification():
+    try:
+        df = pd.read_csv('model_ready_data/eeg_data_beat_intervals.csv')
+        display(df)
+
+        df.insert(1, 'label', '')
+
+        # Function to categorize bpm values
+        def categorize_bpm(bpm):
+            # less than 1 Hz - 1.5 Hz
+            if bpm <= 90:
+                return 0
+            # 1.5 Hz - 2 Hz
+            elif 90 < bpm <= 120:
+                return 1
+            # 2 Hz - 2.5 Hz
+            elif 120 < bpm <= 150:
+                return 2
+
+        # Apply the function to each value in the 'bpm' column
+        df['label'] = df['bpm'].apply(categorize_bpm)
+
+        display(df)
+
+        df.to_csv('eeg_data_classification.csv', index=False)   
+
+
+    except:
+        print("File could not be found.")
+
+    
+    # Divide tempo into buckets
+    
+    
+
+
+add_labels_classification()
+
+
+
+
+
+
+
