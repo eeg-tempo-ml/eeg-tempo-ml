@@ -63,7 +63,7 @@ def load_FD_song_files():
 
     display(data)
 
-def add_labels_classification():
+def add_3_labels_classification():
     try:
         df = pd.read_csv('model_ready_data/eeg_data_beat_intervals.csv')
         display(df)
@@ -94,12 +94,46 @@ def add_labels_classification():
         print("File could not be found.")
 
     
-    # Divide tempo into buckets
+def add_5_labels_classification():
+    try:
+        df = pd.read_csv('model_ready_data/eeg_data_beat_intervals.csv')
+        display(df)
+
+        df.insert(1, 'label', '')
+
+        # Function to categorize bpm values
+        def categorize_bpm(bpm):
+            # less than 1 Hz - 1.5 Hz
+            if 50 < bpm <= 70:
+                return 0
+            # 1.5 Hz - 2 Hz
+            elif  70 < bpm <= 90:
+                return 1
+            # 2 Hz - 2.5 Hz
+            elif 90 < bpm <= 110:
+                return 2
+            
+            elif 110 < bpm <= 130:
+                return 3
+            
+            elif 130 < bpm <= 150:
+                return 4
+
+        # Apply the function to each value in the 'bpm' column
+        df['label'] = df['bpm'].apply(categorize_bpm)
+
+        display(df)
+
+        df.to_csv('eeg_data_classification_5labels.csv', index=False)   
+
+
+    except:
+        print("File could not be found.")
     
     
 
 
-add_labels_classification()
+add_5_labels_classification()
 
 
 
