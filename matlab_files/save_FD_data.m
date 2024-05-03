@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % save_FD_data.m
-% 
+% This script transforms the EEG data into the frequency domain and saves it to local files.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % For each song, load in the data, convert it to frequency domain, and save
@@ -18,7 +18,6 @@ for i = 1:10
 
     % For each trial, perform the conversion to frequency domain
     for j = 1:20
-        figure;
         trial_data = data(:,j);
         % Hard coding the sampling rate to 125 Hz
         sampling_rate = 125;
@@ -38,19 +37,12 @@ for i = 1:10
         trial_data_maxHz = trial_data_frequency(frequency_maxHz_indices,:);
         frequency_axis_maxHz = frequency_axis(frequency_maxHz_indices);
         
-        % Plotting
-        % plot(frequency_axis_maxHz, trial_data_maxHz) 
-
-        song_data(i,:) = trial_data_maxHz;
-
-        % [peak_amplitudes, peak_locations, peak_widths, peak_prominences] = findpeaks(trial_data_maxHz,frequency_axis_maxHz,'MinPeakProminence',20000,'Annotate','extents');
-        % findpeaks(trial_data_maxHz,frequency_axis_maxHz,'MinPeakProminence',20000,'Annotate','extents');
-        % 
-        % disp(peak_locations)
+        % Add ith trial to final song_data matrix
+        song_data(:,j) = trial_data_maxHz;
     
     end 
     data = song_data';
-    filename = strcat('eeg-tempo-ml/FD_files/song', num2str(song_num), '_FD_data.mat');
+    filename = strcat('eeg-tempo-ml/FD_song_files/song', num2str(song_num), '_FD_data.mat');
     save(filename,"data");
 end
 
