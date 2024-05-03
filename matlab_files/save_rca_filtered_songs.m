@@ -1,9 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % save_rca_filtered_songs.m
-%
+% This script runs rca on each song's data matrix and then saves it to local files.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Run each song through the rca filter, then save to .m file
+% Run each song through the rca filter, then save to .mat file
 for i = 1:10
     song_num = i + 20;
     % Will return a time x trial matrix 

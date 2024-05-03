@@ -129,13 +129,3 @@ plot_trial_FD(dataOut)
 
 % Access subplot 1 of the figure
 subplot(3, 1, 1);
-
-% -----------------------------------------------------------------------
-% Exercise for the user: Compare the 2nd and 3rd subplots. 
-% - The 2nd subplot is both spatially filtered and trial averaged. Do you 
-%   see any clear spectral peaks at a multliple or divisor of 2x related 
-%   to your song's tempo? 
-% - Given what you see in the 2nd plot, do you see any evidence of the same
-%   peak frequency/frequencies in the single-trial data? 
-% - How does the noise floor of the 2nd plot compare to the noise floor of
-%   the 3rd plot?
